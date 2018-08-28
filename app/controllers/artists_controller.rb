@@ -6,12 +6,12 @@ class ArtistsController < ApplicationController
   def show
     @artist = Artist.find(params[:id])
   end
-
+  
   def new
-    if params[:artist_id] && !Artist.exists?(params[:artist_id])
-      redirect_to artists_path, alert: "Artist not found."
+    if Preference.last.allow_create_artists
+      @artist = Artist.new
     else
-      @artist = Artistt.new(artist_id: params[:artist_id])
+      redirect_to artists_path
     end
   end
 
